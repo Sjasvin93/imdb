@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body{
+    margin: 0px;
+    background-image: linear-gradient(to right top, #161615, #131312, #10100e, #0c0c0a, #070705);
+}
+
+#imdb_header{
+    background-image: linear-gradient(to right top, #181814, #1b1b17, #1e1e1a, #22221d, #252520);
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#imdb_logo{
+    width: 70px;
+    margin-top: 7px;
+    margin-left: 4%;
+}
+
+#imdb_logo img{
+    width: 100%;
+}
+
+#imdb_search{
+    width: 60%;
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+#imdb_search #imdb_search_box{
+    width: 80%;
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+}
+
+#imdb_search #imdb_search_box:focus{
+    outline-color: yellow;
+    outline-width: 2px;
+}
+
+#imdb_navigate{
+    width: 30%;
+}
+
+#imdb_navigate ul{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+
+#imdb_navigate ul li{
+    width: 100px;
+    height: 100%;
+    text-align: center;
+    padding: 10px;
+    list-style: none;
+    margin-top: 5px;
+    margin-left: 2px;
+    border: none;
+    border-radius: 5px;
+}
+
+#imdb_navigate ul li a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
+}
+
+#imdb_navigate ul li:hover{
+    background-color: rgb(53, 53, 49);
+}
+
+.hide-search-list{
+    display: none;
+}
+
+#search-result-list{
+    position: absolute;
+    margin-top: 5px;
+    max-height: 500px;
+    width: 45.5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #31312c;
+    /* opacity: 0.5; */
+}
+
+#search-result-list .search-list-item{
+    background-color: var(--light-dark-color);
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--dark-color);
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: background-color 200ms ease;
+    -o-transition: background-color 200ms ease;
+    transition: background-color 200ms ease;
+}
+#search-result-list .search-list-item:Hover{
+    background-color: #1f1f1f;
+}
+.search-list-item{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.search-item-thumbnail img{
+    width: 40px;
+    margin-right: 1rem;
+}
+.search-item-info h3{
+    font-weight: 600;
+    font-size: 1rem;
+}
+.search-item-info p{
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(145, 143, 143); 
+    border-radius: 10px;
+}
+
+.result-container{
+    padding: 3rem 0;
+}
+.movie-poster img{
+    max-width: 300px;
+    margin: 0 auto;
+    border: 4px solid #fff;
+    margin-left: 50px;
+}
+.movie-info{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    margin-left: 50px;
+    /* padding-top: 3rem; */
+}
+
+/* movie info stylings */
+.movie-title{
+    font-size: 2rem;
+    color: var(--yellow-color);
+}
+.movie-misc-info{
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 1rem;
+}
+.movie-info .year{
+    font-weight: 500;
+}
+.movie-info .rated{
+    background-color: var(--yellow-color);
+    padding: 0.4rem;
+    margin: 0 0.4rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+.movie-info .released{
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+.movie-info .writer{
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+.movie-info .genre{
+    background-color: var(--light-dark-color);
+    display: inline-block;
+    padding: 0.5rem;
+    border-radius: 3px;
+}
+.movie-info .plot{
+    max-width: 400px;
+    margin: 1rem auto;
+}
+.movie-info .language{
+    color: var(--yellow-color);
+    font-style: italic;
+}
+.movie-info .awards{
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+.movie-info .awards i{
+    color: var(--yellow-color);
+    margin: 1rem 0.7rem 0 0;
+}
+
+@media(max-width: 450px){
+    .logo p{
+        font-size: 1.4rem;
+    }
+    .search-element .form-control{
+        width: 90%;
+        margin: 0 auto;
+        padding: 0.5rem 1rem;
+    }
+    .search-element h3{
+        font-size: 1.4rem;
+    }
+    .search-list{
+        width: 90%;
+        right: 50%;
+        -webkit-transform: translateX(50%);
+            -ms-transform: translateX(50%);
+                transform: translateX(50%);
+    }
+    .search-list .search-list-item{
+        width: 100%;
+    }
+    .movie-misc-info{
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+    .movie-misc-info li:nth-child(2){
+        margin: 0.8rem 0;
+    }
+}
+
+@media(min-width: 800px){
+    .search-element{
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+    }
+    .search-element h3{
+        margin-bottom: 0;
+    }
+    .result-grid{
+        display: flex;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .movie-info{
+        text-align: left;
+        padding-top: 0;
+    }
+    .movie-info .movie-misc-info{
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
+        padding-left: 0;
+    }
+    .movie-info .plot{
+        margin-left: 0;
+    }
+    .movie-info .writer{
+        padding-left: 0;
+        margin-left: 0;
+    }
+}
+
+.addfav{
+    background-color: yellow;
+    padding: 10px 17px;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    margin-left: 50%;
+}
+
+.addfav:hover{
+    background-color: #4b4b47;
+    color: white;
+    cursor: pointer;
+}

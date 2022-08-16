@@ -1,0 +1,20 @@
+{
+  "name": "imdb",
+  "version": "1.0.0",
+  "description": "Website to display the info and ratings of the movies",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js" ,
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Movies"
+  ],
+  "author": "Jasvinder Singh Sandhu",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}

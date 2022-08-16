@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <title><%= title %></title>
+    </head>
+    <!-- including home css file -->
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <script src="/frontendprojects/imdb/assets/js/script.js"></script> -->
+    <body>
+        <!--header with Navigation bar  -->
+        <nav id="imdb_header">
+             <!--imdb official logo  -->
+            <div id="imdb_logo">
+                <img src="/images/imdb_logo.png" alt="imdb logo">
+            </div>
+            <!-- search bar to search the movie -->
+            <div id="imdb_search">
+                <input type="text" id="imdb_search_box" placeholder="Search movies..." onkeyup="findImdbMovies()" onclick="findImdbMovies()" required>
+                <!-- list of results from the search -->
+                <div id="search-result-list">
+
+                </div>
+            </div>
+            <!-- favourite page and homepage navigation -->
+            <div id="imdb_navigate">
+                <ul>
+                    <li><a href="/favourites">Favourites</a></li>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!--  details of the selected movie with poster -->
+            <div class = "container">
+                <div class = "result-container">
+                    <div class = "result-grid" id = "result-grid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // fetching the id's of the required elements
+            const movieSearchBox = document.getElementById('imdb_search_box');
+            const list = document.getElementById('search-result-list');
+            const resultGrid = document.getElementById('result-grid');
+
+            //this function is used to form the name of the movies searched by the user
+            function findImdbMovies(){
+                let searchTitle = (movieSearchBox.value).trim();//removing the spaces from the name
+                // console.log("search term = ", searchTerm);
+                if(searchTitle.length > 0){
+                    list.classList.remove('hide-search-list');//if movies is searched then displaying the contenet by removing the no style 
+                    loadSearchedMovies(searchTitle);
+                } else {
+                    list.classList.add('hide-search-list');
+                }
+            }
+
+            // This function is used to display the searched movies in the current time
+            async function loadSearchedMovies(searchTitle){
+                const URL = `https://omdbapi.com/?s=${searchTitle}&page=1&apikey=fc1fef96`;//sending request through API
+                const res = await fetch(`${URL}`);
+                const data = await res.json(); //results returned from the API
+                if(data.Response == "True") displayImbdMovieList(data.Search);
+            }
+
+            //Displaying movies list
+            function displayImbdMovieList(imbdMovies){
+                list.innerHTML = "";
+                for(let i = 0; i < imbdMovies.length; i++){
+                    let imbdListItem = document.createElement('div');//creating a new div element
+                    imbdListItem.dataset.id = imbdMovies[i].imdbID; // setting the id of the div to the movie imdb id
+                    imbdListItem.classList.add('search-list-item');//adding the dynamic style
+                    
+                    //checking if poster is returened from the API or not
+                    if(imbdMovies[i].Poster != "N/A")
+                        moviePoster = imbdMovies[i].Poster;
+                    else 
+                        moviePoster = "image_not_found.png";
+
+                    // displaying the movie poster title and year of release
+                    imbdListItem.innerHTML = `
+                        <div class = "search-item-thumbnail">
+                        <img src = "${moviePoster}">
+                        </div>
+                        <div class = "search-item-info">
+                        <h3>${imbdMovies[i].Title}</h3>
+                        <p>${imbdMovies[i].Year}</p>
+                        </div>
+                    `;
+                    list.appendChild(imbdListItem);
+                }
+                loadImdbMovieDetails();
+            }
+
+            // function to fetch all the details of the selected movie
+            function loadImdbMovieDetails(){
+                const searchListMovies = list.querySelectorAll('.search-list-item');
+                searchListMovies.forEach(movie => {
+                    movie.addEventListener('click', async () => {
+                        list.classList.add('hide-search-list');
+                        movieSearchBox.value = "";
+                        const result = await fetch(`http://www.omdbapi.com/?i=${movie.dataset.id}&apikey=fc1fef96`);
+                        const movieDetails = await result.json();
+                        displayImdbMovieDetails(movieDetails);
+                    });
+                });
+            }
+
+            // function to display alll the diaply of the selected movie
+            function displayImdbMovieDetails(details){
+                // dynamically creating a div to display the movie details
+                resultGrid.innerHTML = `
+                    <div class = "movie-poster">
+                        <img src = "${(details.Poster != "N/A") ? details.Poster : "image_not_found.png"}" alt = "movie poster">
+                    </div>
+                    <div class = "movie-info">
+                        <h3 class = "movie-title">${details.Title}</h3>
+                        <ul class = "movie-misc-info">
+                            <li class = "year">Year: ${details.Year}</li>
+                            <li class = "rated">Ratings: ${details.Rated}</li>
+                            <li class = "released">Released: ${details.Released}</li>
+                        </ul>
+                        <p class = "genre"><b>Genre:</b> ${details.Genre}</p>
+                        <p class = "writer"><b>Writer:</b> ${details.Writer}</p>
+                        <p class = "actors"><b>Actors: </b>${details.Actors}</p>
+                        <p class = "plot"><b>Plot:</b> ${details.Plot}</p>
+                        <p class = "language"><b>Language:</b> ${details.Language}</p>
+                        <button class="addfav" id="addfav" onclick="addFav()" value="${details.imdbID}">FAVOURITE</button>
+                    </div>
+                `;
+            }
+
+            // function to add the favourite movie and store in the local storage
+            function addFav(){
+                const btnValue = document.getElementById('addfav').value;
+                localStorage.setItem(btnValue,btnValue);
+            }
+        </script>        
+    </body>
+</html>
